@@ -17,8 +17,8 @@ var maze = ["############S##############",
             "###########################"];
 
 var start;
-var height;
-var width;
+var height = maze.length;
+var width = maze[0].length;
 var visited = [];
 var queue = [];
 
@@ -28,13 +28,14 @@ function parseMap(map) {
     for (var j=0; j<map[i].length; j++) {
       if (map[i].charAt(j) == "S") {
         start = [i, j];
+        document.getElementById("y" + i + "x" + j).innerHTML = "S";
+      }
+      document.getElementById("y" + i + "x" + j).innerHTML = map[i].charAt(j);
+      if (map[i].charAt(j) == "#") {
+        document.getElementById("y" + i + "x" + j).style.backgroundColor = 'black';
       }
     }
   }
-
-  // find dimensions
-  height = map.length;
-  width = map[0].length;
 }
 
 function findPaths(pos) {
@@ -46,6 +47,7 @@ function findPaths(pos) {
 
   //check if current space is an exit
   console.log("Current position is " + pos);
+  document.getElementById("y" + y + "x" + x).style.backgroundColor = "red";
   if(maze[y].charAt(x) == "E") {
     console.log("Found path");
     return true;
@@ -75,7 +77,7 @@ function findPaths(pos) {
     nextY = queue.shift();
     nextX = queue.shift();
     nextPos = [nextY, nextX];
-    findPaths(nextPos);
+    setTimeout(function () {findPaths(nextPos);}, 200);
   }
 }
 
@@ -88,5 +90,20 @@ function checkVisited(y, x) {
   return true;
 }
 
+function drawMap() {
+  var tableHTML = "";
+
+  for (var i=0; i<height; i++) {
+    tableHTML = tableHTML.concat("<tr>");
+    for (var j=0; j<width; j++) {
+      tableHTML = tableHTML.concat("<td class='cell' id='y" + i + "x" + j + "'></td>");
+    }
+    tableHTML = tableHTML.concat("</tr>");
+  }
+
+  document.getElementById("mazeTable").innerHTML = tableHTML;
+}
+
+drawMap();
 parseMap(maze);
 findPaths(start);
