@@ -77,7 +77,10 @@ function findPaths(pos) {
     nextY = queue.shift();
     nextX = queue.shift();
     nextPos = [nextY, nextX];
-    setTimeout(function () {findPaths(nextPos);}, 200);
+    setTimeout(function () {
+      document.getElementById("y" + y + "x" + x).style.backgroundColor = "pink";
+      findPaths(nextPos);
+    }, 200);
   }
 }
 
