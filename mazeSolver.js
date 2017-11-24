@@ -110,3 +110,11 @@ function drawMap() {
 drawMap();
 parseMap(maze);
 findPaths(start);
+
+
+/* TODO - Create a feature where the table is initially blank and the user draws (via a 
+mouse-down event handler when that's true over the current cell) the maze, and it edits the
+maze array. Once the maze array has been edited to match the visual maze on the page, the
+user will also input the start and end points on the map. Then the findPaths() function will
+start (via a button) to visualize the solving of the maze. */
+
